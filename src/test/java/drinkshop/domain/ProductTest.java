@@ -22,17 +22,17 @@ class ProductTest {
 
     @Test
     void getId() {
-        assert 100 == product.getId();
+        assertEquals(100, product.getId());
     }
 
     @Test
     void getNume() {
-        assert "Limonada".equals(product.getNume());
+        assertEquals("Limonada", product.getNume());
     }
 
     @Test
     void getPret() {
-        assert 10.0 == product.getPret();
+        assertEquals(10.0, product.getPret(), 0.001);
     }
 
     @Test

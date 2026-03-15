@@ -4,14 +4,13 @@ import drinkshop.repository.AbstractRepository;
 
 import java.io.*;
 
-public abstract class FileAbstractRepository<ID, E>
-        extends AbstractRepository<ID, E> {
+public abstract class FileAbstractRepository<K, E>
+        extends AbstractRepository<K, E> {
 
     protected String fileName;
 
-    public FileAbstractRepository(String fileName) {
+    protected FileAbstractRepository(String fileName) {
         this.fileName = fileName;
-        //loadFromFile();
     }
 
     protected void loadFromFile() {
@@ -49,7 +48,7 @@ public abstract class FileAbstractRepository<ID, E>
     }
 
     @Override
-    public E delete(ID id) {
+    public E delete(K id) {
         E e = super.delete(id);
         writeToFile();
         return e;
