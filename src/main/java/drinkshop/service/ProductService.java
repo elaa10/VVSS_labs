@@ -15,6 +15,8 @@ public class ProductService {
     }
 
     public void addProduct(Product p) {
+
+        new drinkshop.service.validator.ProductValidator().validate(p);
         productRepo.save(p);
     }
 
