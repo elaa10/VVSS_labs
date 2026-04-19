@@ -22,19 +22,38 @@ public class FileRetetaRepository
 
     @Override
     protected Reteta extractEntity(String line) {
+        if (line == null || line.isEmpty()) {
+            throw new IllegalArgumentException("Line is null or empty");
+        }
 
         String[] elems = line.split(",");
 
+        if (elems.length < 2) {
+            throw new IllegalArgumentException("Invalid format: no ingredients");
+        }
+
         int productId = Integer.parseInt(elems[0]);
         List<IngredientReteta> ingrediente = new ArrayList<>();
-        int index=1;
-        while (index<elems.length) {
-            String ingredientTotal= elems[index++];
+        int index = 1;
+
+        while (index < elems.length) {
+            String ingredientTotal = elems[index++];
             String[] ingredientSeparat = ingredientTotal.split(":");
+
+            if (ingredientSeparat.length != 2) {
+                throw new IllegalArgumentException("Invalid ingredient format");
+            }
+
             String ingredientName = ingredientSeparat[0];
+
+            if (ingredientName.isEmpty()) {
+                throw new IllegalArgumentException("Ingredient name is empty");
+            }
+
             Double ingredientQuantity = Double.parseDouble(ingredientSeparat[1]);
             ingrediente.add(new IngredientReteta(ingredientName, ingredientQuantity));
         }
+
         return new Reteta(productId, ingrediente);
     }
 
