@@ -1,4 +1,5 @@
 package drinkshop.receipt;
+import java.util.stream.Collectors;
 
 import drinkshop.domain.Order;
 import drinkshop.domain.OrderItem;
@@ -11,7 +12,7 @@ public class ReceiptGenerator {
         StringBuilder sb = new StringBuilder();
         sb.append("===== BON FISCAL =====\n").append("Comanda #").append(o.getId()).append("\n");
         for (OrderItem i : o.getItems()) {
-            Product p = products.stream().filter((p1)->i.getProduct().getId()==p1.getId()).toList().get(0);
+            Product p = products.stream().filter((p1)->i.getProduct().getId()==p1.getId()).collect(Collectors.toList()).get(0);
             sb.append(p.getNume()+": ").append(p.getPret()).append(" x ").append(i.getQuantity()).append(" = ").append(i.getTotal()).append(" RON\n");
         }
         sb.append("---------------------\nTOTAL: ").append(o.getTotalPrice()).append(" RON\n=====================\n");

@@ -1,4 +1,5 @@
 package drinkshop.service;
+import java.util.stream.Collectors;
 
 import drinkshop.domain.IngredientReteta;
 import drinkshop.domain.Reteta;
@@ -62,7 +63,7 @@ public class StocService {
 
             List<Stoc> ingredienteStoc = stocRepo.findAll().stream()
                     .filter(s -> s.getIngredient().equalsIgnoreCase(ingredient))
-                    .toList();
+                    .collect(Collectors.toList());
 
             double ramas = necesar;
 
