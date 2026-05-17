@@ -2,6 +2,8 @@ package drinkshop.service;
 
 import drinkshop.domain.*;
 import drinkshop.repository.Repository;
+import drinkshop.service.validator.ProductValidator;
+import drinkshop.service.validator.Validator;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,18 +11,28 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     private final Repository<Integer, Product> productRepo;
+    private final Validator<Product> validator;
 
+    // Constructorul vechi - pastrat pentru compatibilitate cu codul existent
+    // (DrinkShopService nu trebuie modificat).
     public ProductService(Repository<Integer, Product> productRepo) {
+        this(productRepo, new ProductValidator());
+    }
+
+    // Constructor nou: permite injectarea validatorului (folosit in teste).
+    public ProductService(Repository<Integer, Product> productRepo,
+                          Validator<Product> validator) {
         this.productRepo = productRepo;
+        this.validator = validator;
     }
 
     public void addProduct(Product p) {
-
-        new drinkshop.service.validator.ProductValidator().validate(p);
+        validator.validate(p);
         productRepo.save(p);
     }
 
-    public void updateProduct(int id, String name, double price, CategorieBautura categorie, TipBautura tip) {
+    public void updateProduct(int id, String name, double price,
+                              CategorieBautura categorie, TipBautura tip) {
         Product updated = new Product(id, name, price, categorie, tip);
         productRepo.update(updated);
     }
@@ -30,13 +42,6 @@ public class ProductService {
     }
 
     public List<Product> getAllProducts() {
-//        Iterable<Product> it=productRepo.findAll();
-//        ArrayList<Product> products=new ArrayList<>();
-//        it.forEach(products::add);
-//        return products;
-
-//        return StreamSupport.stream(productRepo.findAll().spliterator(), false)
-//                    .collect(Collectors.toList());
         return productRepo.findAll();
     }
 
