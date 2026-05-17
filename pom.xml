@@ -26,6 +26,7 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Mockito core pentru obiecte mock -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
@@ -33,6 +34,7 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Mockito JUnit 5 integration: @ExtendWith(MockitoExtension.class) -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
@@ -82,15 +84,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.1.2</version>
-                <configuration>
-                    <statelessTestsetReporter
-                            implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5Xml30StatelessReporter">
-                        <usePhrasedFileName>false</usePhrasedFileName>
-                        <usePhrasedTestSuiteClassName>false</usePhrasedTestSuiteClassName>
-                        <usePhrasedTestCaseClassName>false</usePhrasedTestCaseClassName>
-                        <usePhrasedTestCaseMethodName>false</usePhrasedTestCaseMethodName>
-                    </statelessTestsetReporter>
-                </configuration>
             </plugin>
         </plugins>
     </build>
